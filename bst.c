@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct {
+typedef struct node_t {
 	int value;
 	struct node_t *right;
 	struct node_t *left;
@@ -63,10 +63,12 @@ void insert(node_t * node, int elem){
 				// Move right
 				node = node -> right;
 			}
-			}
-		}else{
+		}
+		
+		else{
 				//duplicate, break
 				break;
+		}
 	}
 }
 
@@ -76,11 +78,17 @@ void destroyTree(node_t * node){
 	if(node == NULL){
 			return;
 	}
-	else{
-		destroyTree(node->left);
-		destroyTree(node->right);
-		free(node);
-	}
+	
+	destroyTree(node->left);
+	destroyTree(node->right);
+	free(node);
+}
+
+node_t *find_min(node_t *node) {
+    while (node->left != NULL) {
+        node = node->left;
+    }
+    return node;
 }
 
 void delete(node_t *node, int elem) {
@@ -136,12 +144,7 @@ void delete(node_t *node, int elem) {
     }
 }
 
-node_t *find_min(node_t *node) {
-    while (node->left != NULL) {
-        node = node->left;
-    }
-    return node;
-}
+
 
 
 	
